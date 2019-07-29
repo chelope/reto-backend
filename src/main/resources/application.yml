@@ -1,0 +1,29 @@
+# Spring
+spring:
+  profiles:
+   active: default
+  main:
+   allow-bean-definition-overriding: true
+  application:
+   name: promart-backend
+  mvc:
+   view:
+    prefix: /WEB-INF/jsp/
+    suffix: .jsp
+  security:
+    user:
+      name: backend
+      password: backend
+
+# Embedded Server
+server:
+  port: 8080
+
+# Logging
+logging:
+  config: classpath:log4j2.xml
+
+# Firebase
+firebase:
+  service-account-filename: classpath:firebase-service-account.json
+  realtime-database-url: https://retopromart.firebaseio.com
