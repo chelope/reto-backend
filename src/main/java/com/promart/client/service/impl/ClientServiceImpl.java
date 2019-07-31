@@ -49,7 +49,7 @@ public class ClientServiceImpl implements ClientService {
         List<ClientWrapper> clientWrapperList = listClients.stream()
                 .collect(
                         Collectors.mapping(
-                                c -> new ClientWrapper(c, c.computeAge(), c.computeProbableDeathDate(kpis.get("standardDeviation").getValue())),
+                                c -> new ClientWrapper(c, c.computeAge(), c.computeProbableDeathDate(kpis.get(STANDARD_DESVIATION).getValue())),
                                 Collectors.toList()));
 
         return clientWrapperList;

@@ -1,30 +1,18 @@
 package com.promart.client.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.promart.client.Application;
 import com.promart.client.model.Client;
 import com.promart.client.repository.ClientRepository;
-import com.promart.client.service.ClientService;
-import com.promart.client.service.impl.ClientServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -92,7 +80,7 @@ public class ClientControllerIntegrationTest {
         List<Client> clients = Arrays.asList(client1,client2);
         Mockito.when(clientRepository.findAll(any(Client.class))).thenReturn(clients);
 
-        mvc.perform(get("/clientes/kpiclientes").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$.standardDeviation", is(0.0)));
+        mvc.perform(get("/clientes/kpiclientes").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
     }
 
 
