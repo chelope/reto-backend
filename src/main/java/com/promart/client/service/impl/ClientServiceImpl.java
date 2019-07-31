@@ -2,6 +2,7 @@ package com.promart.client.service.impl;
 
 import com.promart.client.model.Client;
 import com.promart.client.model.ClientWrapper;
+import com.promart.client.model.Kpi;
 import com.promart.client.repository.ClientRepository;
 import com.promart.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ClientServiceImpl implements ClientService {
+
+    public static final String STANDARD_DESVIATION = "standardDesviation";
+    public static final String AVERAGE = "average";
 
     @Autowired
     private ClientRepository clientRepository;
@@ -40,12 +44,12 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientWrapper> listAllWrapper() {
         List<Client> listClients = clientRepository.findAll();
-        Map<String, Double> kpis = computeKpiClients(listClients);
+        Map<String, Kpi> kpis = computeKpiClients(listClients);
 
         List<ClientWrapper> clientWrapperList = listClients.stream()
                 .collect(
                         Collectors.mapping(
-                                c -> new ClientWrapper(c, c.computeAge(), c.computeProbableDeathDate(kpis.get("standardDeviation"))),
+                                c -> new ClientWrapper(c, c.computeAge(), c.computeProbableDeathDate(kpis.get("standardDeviation").getValue())),
                                 Collectors.toList()));
 
         return clientWrapperList;
@@ -54,22 +58,28 @@ public class ClientServiceImpl implements ClientService {
     /**
      * @return Map that contains KPIs Average Age and Standard Desviation Age
      */
+
     @Override
-    public Map<String, Double> getKpiClients() {
-        return computeKpiClients(clientRepository.findAll());
+    public List<Kpi> getKpiClients() {
+        Map<String, Kpi> mapKpis = computeKpiClients(clientRepository.findAll());
+        ArrayList<Kpi> listKpis = new ArrayList<Kpi>(mapKpis.values());
+        return listKpis;
     }
 
     /**
      * @return Map that contains KPIs Average Age and Standard Desviation Age and Clients
      */
-    public static Map<String, Double> computeKpiClients(List<Client> listClients) {
-        Map<String, Double> kpis = new HashMap<String, Double>();
+    public static Map<String, Kpi> computeKpiClients(List<Client> listClients) {
+        Map<String,Kpi> kpis = new HashMap<String, Kpi>();
 
         List<Integer> ageList = listClients.stream().map(Client::computeAge).collect(Collectors.toList());
         Double standardDeviation = computeStandardDeviation(ageList.toArray(new Integer[0]));
         Double average = computeAverage(ageList.toArray(new Integer[0]));
-        kpis.put("standardDeviation", standardDeviation);
-        kpis.put("average", average);
+        Kpi kpiSd = new Kpi(STANDARD_DESVIATION,standardDeviation);
+        Kpi kpiAverage = new Kpi(AVERAGE,average);
+
+        kpis.put(STANDARD_DESVIATION, kpiSd);
+        kpis.put(AVERAGE, kpiAverage);
 
         return kpis;
     }

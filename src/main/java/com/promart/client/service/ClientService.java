@@ -2,9 +2,9 @@ package com.promart.client.service;
 
 import com.promart.client.model.Client;
 import com.promart.client.model.ClientWrapper;
+import com.promart.client.model.Kpi;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -13,6 +13,6 @@ import java.util.Map;
  * @author Christian Arias [chri.arias@gmail.com]
  */
 public interface ClientService  extends GenericService<Client, String> {
-    Map<String,Double> getKpiClients();
+    List<Kpi>  getKpiClients();
     List<ClientWrapper> listAllWrapper();
 }
