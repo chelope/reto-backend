@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "ca198749-97d2-4ab3-b5c2-fb7aa98499dd",
+		"name": "RetoBackend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "listClientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://promart-backend-gtzpi2ipla-uc.a.run.app/clientes/listclientes",
+					"protocol": "https",
+					"host": [
+						"promart-backend-gtzpi2ipla-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"clientes",
+						"listclientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kpiClientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://promart-backend-gtzpi2ipla-uc.a.run.app/clientes/kpiclientes",
+					"protocol": "https",
+					"host": [
+						"promart-backend-gtzpi2ipla-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"clientes",
+						"kpiclientes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
